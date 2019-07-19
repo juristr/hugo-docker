@@ -1,4 +1,4 @@
-FROM alpine:3.8
+FROM alpine:3.10
 
 LABEL maintainer="Juri Strumpflohner <info@juristr.com>"
 
@@ -25,6 +25,8 @@ RUN wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/s
 
 RUN apk --no-cache add git
 
+RUN apk add --update nodejs nodejs-npm
+
 # Install HUGO
 RUN wget https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/${HUGO_BINARY} && \
     tar xzf ${HUGO_BINARY} && \
@@ -33,5 +35,5 @@ RUN wget https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/${H
     apk del wget ca-certificates && \
     rm /var/cache/apk/*
 
-WORKDIR ${HUGO_SITE}
+WORKDIR ${HUGO_SITE}`
 EXPOSE 1313
